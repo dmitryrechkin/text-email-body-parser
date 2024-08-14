@@ -1,0 +1,26 @@
+{
+	"name": "@dmitryrechkin/text-email-body-parser",
+	"type": "module",
+	"private": true,
+	"version": "1.0.0",
+	"scripts": {
+		"lint": "eslint .",
+		"format": "eslint --fix .",
+		"test": "vitest run",
+		"check": "tsc --noEmit",
+		"build": "rm -rf ./dist && tsc && bun build ./src/index.ts --outdir ./dist",
+		"package:publish": "pnpm publish --access public",
+		"prepublishOnly": "pnpm run build"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^3.0.0",
+		"@dmitryrechkin/eslint-standard": "^1.0.7",
+		"@types/node": "^20.8.3",
+		"eslint": "^8.0.0",
+		"eslint-plugin-unused-imports": "^3.0.0",
+		"typescript": "^5.5.3",
+		"vitest": "^0.24.5"
+	},
+	"dependencies": {
+	}
+}

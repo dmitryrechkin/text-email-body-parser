@@ -1,0 +1,11 @@
+src/
+tests/
+bun.lockb
+.gitignore
+.eslintrc
+.eslintignore
+.npmignore
+eslint.config.mjs
+tsconfig.json
+tsconfig.eslint.json
+vitest.config.ts
