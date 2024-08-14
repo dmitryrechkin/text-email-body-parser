@@ -1,7 +1,6 @@
 {
 	"name": "@dmitryrechkin/text-email-body-parser",
 	"type": "module",
-	"private": true,
 	"version": "1.0.0",
 	"scripts": {
 		"lint": "eslint .",
