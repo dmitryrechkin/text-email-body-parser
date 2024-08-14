@@ -1,13 +1,15 @@
 {
 	"name": "@dmitryrechkin/text-email-body-parser",
 	"type": "module",
-	"version": "1.0.0",
+	"version": "1.0.1",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
 	"scripts": {
 		"lint": "eslint .",
 		"format": "eslint --fix .",
 		"test": "vitest run",
 		"check": "tsc --noEmit",
-		"build": "rm -rf ./dist && tsc && bun build ./src/index.ts --outdir ./dist",
+		"build": "shx rm -rf dist && tsc",
 		"package:publish": "pnpm publish --access public",
 		"prepublishOnly": "pnpm run build"
 	},
@@ -18,7 +20,8 @@
 		"eslint": "^8.0.0",
 		"eslint-plugin-unused-imports": "^3.0.0",
 		"typescript": "^5.5.3",
-		"vitest": "^0.24.5"
+		"vitest": "^0.24.5",
+		"shx": "^0.3.4"
 	},
 	"dependencies": {
 	}

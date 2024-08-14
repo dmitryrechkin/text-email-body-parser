@@ -11,7 +11,7 @@ This library supports most email replies, signatures, and locales.
 Install the project using pnpm:
 
 ```bash
-pnpm add text-email-body-parser
+pnpm add @dmitryrechkin/text-email-body-parser
 ```
 
 ## Features
@@ -24,7 +24,7 @@ pnpm add text-email-body-parser
 ## Usage
 
 ```javascript
-import { TextEmailBodyParser } from "text-email-body-parser";
+import { TextEmailBodyParser } from "@dmitryrechkin/text-email-body-parser";
 
 const parser = new TextEmailBodyParser();
 const email = parser.parse(MY_EMAIL_STRING);
