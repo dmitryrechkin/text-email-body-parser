@@ -1,7 +1,7 @@
 {
 	"name": "@dmitryrechkin/text-email-body-parser",
 	"type": "module",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {
@@ -9,14 +9,13 @@
 		"format": "eslint --fix .",
 		"test": "vitest run",
 		"check": "tsc --noEmit",
-		"build": "shx rm -rf dist && tsc",
+		"build": "shx rm -rf dist && tsc && fix-esm-import-path dist",
 		"package:publish": "pnpm publish --access public",
 		"prepublishOnly": "pnpm run build"
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^3.0.0",
+		"fix-esm-import-path": "^1.0.1",
 		"@dmitryrechkin/eslint-standard": "^1.0.7",
-		"@types/node": "^20.8.3",
 		"eslint": "^8.0.0",
 		"eslint-plugin-unused-imports": "^3.0.0",
 		"typescript": "^5.5.3",
