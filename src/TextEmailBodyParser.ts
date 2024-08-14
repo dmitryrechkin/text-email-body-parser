@@ -43,7 +43,8 @@ export class TextEmailBodyParser
 	 */
 	private splitsFragmentsByDepthAndSignature(fragmentsByHeaderText: TypeTextEmailBodyFragment[]): TypeTextEmailBodyFragment[]
 	{
-		return fragmentsByHeaderText.flatMap(fragmentWithHeaderText => {
+		return fragmentsByHeaderText.flatMap(fragmentWithHeaderText =>
+		{
 			const fragments: TypeTextEmailBodyFragment[] = [];
 			this.splitTextToFragmentsByDepthAndSignature(fragmentWithHeaderText, fragments);
 			return fragments;
@@ -90,7 +91,8 @@ export class TextEmailBodyParser
 			text: text,
 			depth: -1,
 			signature: false,
-			headerText: nextHeaderText
+			headerText: nextHeaderText.length > 0 ? nextHeaderText : undefined,
+			senderEmail: this.matchEmail(nextHeaderText)
 		};
 
 		if (match)
@@ -115,13 +117,37 @@ export class TextEmailBodyParser
 	 */
 	private matchHeader(emailText: string): RegExpExecArray | undefined
 	{
+		return this.matchPatterns(emailText, this.patterns.HEADER_REGEX);
+	}
+
+	/**
+	 * Matches the email address in the email text.
+	 *
+	 * @param {string} emailText
+	 * @returns {string|undefined}
+	 */
+	private matchEmail(emailText: string): string | undefined
+	{
+		const match = this.matchPatterns(emailText, this.patterns.EMAIL_REGEX);
+
+		return match ? match[0] : undefined;
+	}
+
+	/**
+	 * Matches the header of the email.
+	 *
+	 * @param {string} text
+	 * @param {RegExp[]} patterns
+	 * @returns {RegExpExecArray|undefined}
+	 */
+	private matchPatterns(text: string, patterns: RegExp[]): RegExpExecArray | undefined
+	{
 		let match: RegExpExecArray|undefined = undefined;
 
-		// Find the closest header position
-		this.patterns.HEADER_REGEX.forEach((regex) =>
+		patterns.forEach((regex) =>
 		{
 			// the reason we create new instance of RegExp is to avoid it caching last matches position especially if 'g' flag is used
-			let newMatch = (new RegExp(regex)).exec(emailText);
+			let newMatch = (new RegExp(regex)).exec(text);
 			if (newMatch && (!match || newMatch.index < match.index))
 			{
 				match = newMatch;
@@ -209,7 +235,13 @@ export class TextEmailBodyParser
 	 */
 	private normalizeText(text: string): string
 	{
-		return text.replace(/\r\n/g, '\n').trim();
+		return text
+			// normalize line endings
+			.replace(/\r\n/g, '\n')
+			// remove extra spaces between >
+			.replace(/> (?=>)/g, '>')
+			// remove extra spaces at the end of the line
+			.trim();
 	}
 
 	/**
@@ -220,7 +252,7 @@ export class TextEmailBodyParser
 	 */
 	private removeQuotesFromLine(line: string): string
 	{
-		return line.replace(new RegExp(`^${this.QUOTE}+\\s?`), '');
+		return line.replace(new RegExp(`^(${this.QUOTE}\\s?)+`), '');
 	}
 
 	/**

@@ -1,7 +1,7 @@
 {
 	"name": "@dmitryrechkin/text-email-body-parser",
 	"type": "module",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"scripts": {

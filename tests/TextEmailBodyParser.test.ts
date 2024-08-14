@@ -20,6 +20,21 @@ function getEmailFragments(name: string): TypeTextEmailBodyFragment[]
 
 describe('TextEmailBodyParser', () =>
 {
+	it('should be able to read a gmail thread', () =>
+	{
+		const fragments = getEmailFragments('email_gmail_thread');
+
+		expect(fragments[0].depth).toEqual(0);
+		expect(fragments[0].text).toEqual('I understand your replay, but I still want to book this room!');
+		expect(fragments[0].headerText).toBeUndefined();
+		expect(fragments[1].depth).toEqual(1);
+		expect(fragments[1].text).toEqual('Yeah, I’m doing very good thanks!');
+		expect(fragments[1].headerText).toEqual('On Sun, Aug 11, 2024 at 11:03 AM First Last wrote:');
+		expect(fragments[3].depth).toEqual(2);
+		expect(fragments[3].text.trim()).toEqual('I\'m doing well and you?');
+		expect(fragments[3].headerText).toEqual('On Aug 11, 2024, at 10:19, Another Name > [user2@gmail.com]> wrote:');
+		expect(fragments[3].senderEmail).toEqual('user2@gmail.com');
+	});
 
 	it('should read a simple body', () =>
 	{
@@ -33,7 +48,6 @@ describe('TextEmailBodyParser', () =>
 	it('should read top post', () =>
 	{
 		const fragments = getEmailFragments('email_3');
-		console.log(fragments[2].text);
 		expect(fragments[2].text.trim()).toBe('Hi folks\n\nWhat is the best way to clear a Riak bucket of all key, values after\nrunning a test?\nI am currently using the Java HTTP API.');
 	});
 

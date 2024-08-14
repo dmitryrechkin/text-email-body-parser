@@ -3,6 +3,10 @@ import { type TextEmailBodyPatterns } from './Types';
 export const textEmailBodyPatterns: TextEmailBodyPatterns =
 {
 	// eslint-disable-next-line @typescript-eslint/naming-convention
+	EMAIL_REGEX: [
+		/[\w\.-]+@[\w\.-]+\.\w+/mi
+	],
+	// eslint-disable-next-line @typescript-eslint/naming-convention
 	HEADER_REGEX: [
 		/-*\s*(On\s.+\s.+\n?wrote:{0,1})\s{0,1}-*$/mi, // On DATE, NAME <EMAIL> wrote:
 		/-*\s*(Le\s.+\s.+\n?écrit\s?:{0,1})\s{0,1}-*$/mi, // Le DATE, NAME <EMAIL> a écrit :
